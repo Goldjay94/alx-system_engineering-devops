@@ -1,1 +1,1 @@
-Task(6) 6-third_line
+Task(0)0-hello_world
