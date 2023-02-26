@@ -1,6 +1,7 @@
 0x09-web_infrastructure_design
 
-#Key concepts
+Key concepts:
+
 Network basics
 Server
 Web server
