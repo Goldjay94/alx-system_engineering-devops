@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 # This script installs and Configures an Nginx server
-apt update -y
-apt install -y nginx
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo chown -R "$USER:$USER" /var/www
+echo 'Hello World!' > /var/www/html/index.html
+printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-echo "Hell World!" > /var/www/html/index.html
+    root /var/www/html;
 
-LINE="\\\trewrite ^/redirect_me https://github.com/Goldjay permanent;"
-sed -i "24i $LINE" /etc/nginx/sites-available/default
+    index index.html index.htm index.nginx-debian.html;
 
-service nginx restart
+    server_name _;
 
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}" > /etc/nginx/sites-available/default
+
+sudo service nginx restart
