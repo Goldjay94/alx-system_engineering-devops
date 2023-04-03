@@ -1,25 +1,30 @@
 #!/usr/bin/env bash
 # Serve a web page using nginx
-apt update -y
-apt install -y nginx
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo chown -R "$USER:$USER" /var/www
+echo 'Hello World!' > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-echo "Hello World!" > /var/www/html/index.html
+    root /var/www/html;
 
-REDIRECT="\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4;"
-sed -i "24i $REDIRECT" /etc/nginx/sites-available/default
+    index index.html index.htm index.nginx-debian.html;
 
-NOT_FOUND="\\\terror_page 404 /404.html;\n\
-        location = /404.html {\n\
-                root /var/www/html;\n\
-                internal;\
-        }"
-sed -i "26i $NOT_FOUND" /etc/nginx/sites-available/default
+    server_name _;
 
-PAGE_404="Ceci n'est pas une page" 
-echo "${PAGE_404}" > /var/www/html/404.html
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
 
-HEADER_HOSTNAME="\\\tadd_header X-Served-By ${HOSTNAME};"
-sed -i "26i $HEADER_HOSTNAME" /etc/nginx/sites-available/default
+    error_page 404 /404.html;
+    add_header X-Served-By $(hostname);
 
-service nginx restart
+    location = /404.html {
+        internal;
+    }
+}" > /etc/nginx/sites-available/default
 
+sudo service nginx restart
