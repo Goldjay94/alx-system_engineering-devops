@@ -39,6 +39,6 @@ echo "$config_text" > $default_web
 sudo chmod 644 $default_web
 sudo touch $error_file
 sudo chmod a+w $error_file
-echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404.html
+echo "Ceci n'est pas une page" | sudo tee $error_file &&
 sudo chmod 644 $error_file
 sudo service nginx restart
