@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Debugging apache web server
+sudo /etc/init.d/apache2 restart
+
