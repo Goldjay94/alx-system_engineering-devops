@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#Script to fix the Nginx server
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+pkill -1 nginx
