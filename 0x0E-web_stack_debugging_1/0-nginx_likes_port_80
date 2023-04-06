@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 #Script to install and fix the Nginx configuration file to listen to port 80
-sudo sed -i 's/8080/80/'  /etc/nginx/sites-enabled/default
+sudo service nginx stop
+sudo sed -i "s/sites-enabled/sites-available/" /etc/nginx/nginx.conf
 sudo service nginx restart
