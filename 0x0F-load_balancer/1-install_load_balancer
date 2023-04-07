@@ -6,9 +6,8 @@ sudo apt install haproxy -y
 haproxy=/etc/default/haproxy
 echo "ENABLED=1" | sudo tee -a $haproxy
 
-path=/etc/haproxy/haproxy.cfg
-config=\
-"
+# Configure haproxy to distribute request using roundrobin algorithm
+echo '
 frontend manage_entry
 	  bind *:80
 	  default_backend my_web_servers
@@ -16,6 +15,7 @@ backend my_web_servers
 	balance static-rr
 	server web-01 54.88.199.223 check
 	server web-02 54.208.92.253 check
-"
+' >> /etc/haproxy/haproxy.cfg
 
+# Start Haproxy service
 sudo systemctl start haproxy.service
