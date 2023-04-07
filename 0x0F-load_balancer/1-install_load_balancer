@@ -9,13 +9,13 @@ echo "ENABLED=1" | sudo tee -a $haproxy
 path=/etc/haproxy/haproxy.cfg
 config=\
 "
-frontend manage_entry
+frontend goldjay-frontend
 	  bind *:80
-	  default_backend my_web_servers
-backend my_web_servers
+	  default_backend goldjay-backend
+backend goldjay-backend
 	balance static-rr
-	server web-01 54.88.199.223 check
-	server web-02 54.208.92.253 check
+	server web-01 54.88.199.223:80 check
+	server web-02 54.208.92.253:80 check
 "
 
 echo "$config" | sudo tee -a "$path"
