@@ -18,5 +18,4 @@ backend my_web_servers
 	server web-02 54.208.92.253 check
 "
 
-echo "$config" | sudo tee -a "$path"
 sudo systemctl restart haproxy.service

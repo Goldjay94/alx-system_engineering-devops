@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+l#!/usr/bin/env bash
 # Script to setup an nginx server
 index_file=/var/www/html/index.nginx-debian.html
 error_file=/var/www/html/error.html
@@ -7,7 +7,6 @@ config_text=\
 "server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
-        add_header X-Served-By $HOSTNAME;
 
 	root /var/www/html;
 
@@ -27,6 +26,7 @@ config_text=\
 	}
 
 	location / {
+        add_header X-Served-By $HOSTNAME;
 		 try_files \$uri \$uri/ =404;
 	}
 }"
