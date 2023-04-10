@@ -2,18 +2,18 @@
 # Configure your domain zone so that the subdomain www points to your
 # load-balancer IP (lb-01).
 
-# if [ -z "$1" ]; then
-#     exit
-# fi
-
 dom=("www" "lb-01" "web-01" "web-02")
-
 
 get_and_print ()
 {
     output=$(dig @8.8.8.8 "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1)
     echo "The subdomain $2 is a $(echo "$output" | awk '{print $4}') record and points to $(echo "$output" | awk '{print $5}')"
 }
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 domain [subdomain]"
+    exit 1
+fi
 
 if [ -z "$2" ]; then
     for str in "${dom[@]}"; do
@@ -22,3 +22,4 @@ if [ -z "$2" ]; then
 else
     get_and_print "$1" "$2"
 fi
+
