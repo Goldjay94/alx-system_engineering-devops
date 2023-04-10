@@ -47,6 +47,6 @@ frontend manage_http_entry
 backend my_web_servers
 	balance static-rr
         redirect scheme https if !{ ssl_fc }
-	server web-01 54.88.199.223 check
-	server web-02 54.208.92.253 check
+	server web-01 54.88.199.223:80 check
+	server web-02 54.208.92.253:80 check
 
