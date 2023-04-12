@@ -37,11 +37,10 @@ defaults
 
 frontend manage_https_entry
 	bind ./*:443 ssl crt /etc/haproxy/certs/mydigitaz.tech.pem
-	acl is_www hdr_beg(host) www.
 	use_backend my_web_servers if is_www
 
 frontend manage_http_entry
-	bind *:80
+	bind ./*:80
 	default_backend my_web_servers
 
 backend my_web_servers
