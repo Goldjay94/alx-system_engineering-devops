@@ -36,7 +36,7 @@ defaults
 
 
 frontend manage_https_entry
-	bind *:443 ssl crt /etc/haproxy/certs/mydigitaz.tech.pem
+	bind *:443 ssl crt /etc/haproxy/certs/www.mydigitaz.tech.pem
 	acl is_www hdr_beg(host) www.
 	use_backend my_web_servers if is_www
 
@@ -47,6 +47,6 @@ frontend manage_http_entry
 backend my_web_servers
 	balance static-rr
         redirect scheme https if !{ ssl_fc }
-	server web-01 54.88.199.223:80 check
-	server web-02 54.208.92.253:80 check
+	server 130764-web-01 54.88.199.223:80 check
+	server 130764-web-02 54.208.92.253:80 check
 
