@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Switch user and run the whoami command
-su - "$1" -c "whoami"
+sudo -u "$1" whoami
 
