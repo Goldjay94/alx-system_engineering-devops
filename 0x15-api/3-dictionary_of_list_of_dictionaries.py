@@ -1,4 +1,4 @@
-i#!/usr/bin/python3
+#!/usr/bin/python3
 """This script exports data retrieved
 from an api request in JSON format"""
 
