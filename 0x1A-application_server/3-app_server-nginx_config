@@ -1,0 +1,37 @@
+server {
+        listen 80;
+        server_name 54.88.199.223;
+
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        #flask app config
+            location ~ /airbnb-dynamic/number_odd_or_even/([0-9]+) {
+                include proxy_params;
+                proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
+            }
+        error_page 404 /error.html;
+        add_header X-Served-By 130764-web-01;
+
+        location /error.html {
+                 root /var/www/html;
+                 internal;
+        }
+
+        location /redirect_me {
+                 rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+
+        location /hbnb_static {
+                 alias /data/web_static/current;
+        }
+        location /airbnb-onepage/ {
+                 alias ~/AirBnB_clone_v2/;
+                 include proxy_params;
+                 proxy_pass http://localhost:5000/airbnb-onepage;
+        }
+        location / {
+                 try_files $uri $uri/ =404;
+        }
+      }
